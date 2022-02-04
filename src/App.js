@@ -19,16 +19,37 @@ function App() {
     finalst(newTxt);
   }
   const Reset = () => {
-    // document.getElementById("floatingTextarea2").value="";
     finalst("");
+  }
+  const replaceWrds = () => {
+    let newTxt = initialst;
+    let word = window.prompt("Enter a word to replace: ");
+    if (newTxt.indexOf(word) === -1) {
+      document.getElementById("errortext").innerText = "No such word found!"
+      setTimeout(() => {
+        document.getElementById("errortext").innerText = "";
+      }, 2000);
+      setTimeout(() => {
+        return;
+      }, 2000);
+    }else{
+    let repwo = window.prompt("Enter the word to replace with: ");
+    newTxt = newTxt.replace(word, repwo);
+    finalst(newTxt);}
+  }
+  const rBlnksp = () => {
+    let newTxt = initialst;
+    newTxt = newTxt.replace(/\s+/g, ' ').trim();
+    finalst(newTxt);
   }
   const wUprCs = () => {
     let newTxt = initialst;
-    var words = newTxt.split(' ');  
-    var CapitalizedWords = [];  
-    words.forEach(element => {  
-        CapitalizedWords.push(element[0].toUpperCase() + element.slice(1, element.length));  
-    });  
+    newTxt = newTxt.replace(/\s+/g, ' ').trim();
+    var words = newTxt.split(' ');
+    var CapitalizedWords = [];
+    words.forEach(element => {
+      CapitalizedWords.push(element[0].toUpperCase() + element.slice(1, element.length));
+    });
     newTxt = CapitalizedWords.join(' ');
     finalst(newTxt);
   }
@@ -52,14 +73,16 @@ function App() {
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={toLwrCs}>To LowerCase</button>
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={Reset}>Reset</button>
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={wUprCs}>Word Initials UpperCase</button>
-        {/* <button className="btn btn-primary">To UpperCase</button>
-    <button className="btn btn-primary">To UpperCase</button> */}
+        <button className="btn btn-danger" style={{ margin: "8px" }} onClick={rBlnksp}>Remove Blank Spaces</button>
+        <button className="btn btn-danger" style={{ margin: "8px" }} onClick={replaceWrds}>Replace Words</button>
       </div>
       <div className="container py-2" id="textsummary">
         <h2>Text Summary</h2>
         <span id="words"> {initialst.split(" ").length} words </span>|
         <span id="chars"> {initialst.length} characters </span>|
         <span id="timetoread"> {initialst.split(" ").length * 0.008} mins to read (approx)</span>
+        <br />
+        <h3><span id="errortext"></span></h3>
       </div>
 
     </>
