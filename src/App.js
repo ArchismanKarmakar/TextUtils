@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import { render } from '@testing-library/react';
 // import ScriptTag from 'react-script-tag';
 import ReactDOM from 'react-dom';
+import Alert from './alert';
+import { type } from '@testing-library/user-event/dist/type';
 // import reactDom from 'react-dom';
 
 function App() {
@@ -13,13 +15,16 @@ function App() {
   const toUprCs = () => {
     let newTxt = initialst.toUpperCase();
     finalst(newTxt);
+    showAlert("Converted to upper case", "success");
   }
   const toLwrCs = () => {
     let newTxt = initialst.toLowerCase();
     finalst(newTxt);
+    showAlert("Converted to lower case", "success");
   }
   const Reset = () => {
     finalst("");
+    showAlert("Cleared", "success");
   }
   const replaceWrds = () => {
     let newTxt = initialst;
@@ -32,15 +37,18 @@ function App() {
       setTimeout(() => {
         return;
       }, 2000);
-    }else{
-    let repwo = window.prompt("Enter the word to replace with: ");
-    newTxt = newTxt.replace(word, repwo);
-    finalst(newTxt);}
+    } else {
+      let repwo = window.prompt("Enter the word to replace with: ");
+      newTxt = newTxt.replace(word, repwo);
+      finalst(newTxt);
+      showAlert("Replaced the mentioned word at every occurances.", "success");
+    }
   }
   const rBlnksp = () => {
     let newTxt = initialst;
     newTxt = newTxt.replace(/\s+/g, ' ').trim();
     finalst(newTxt);
+    showAlert("All extra spaces removed", "success");
   }
   const wUprCs = () => {
     let newTxt = initialst;
@@ -52,16 +60,32 @@ function App() {
     });
     newTxt = CapitalizedWords.join(' ');
     finalst(newTxt);
+    showAlert("Word initials converted to upper case", "success");
   }
   const updatest = (event) => {
     finalst(event.target.value);
   }
 
+
   const [initialst, finalst] = useState("");
+
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type
+    });
+    setTimeout(() => {
+      setAlert(null)
+    }, 2000);
+  }
 
   return (
     <>
       < Navbar />
+      {/* <h1 onLoad="showAlert('123','warning')"></h1> */}
+      <Alert alert={alert} />
       <div className="container">
 
         <div className="form-floating py-5 my-5">
@@ -73,7 +97,7 @@ function App() {
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={toLwrCs}>To LowerCase</button>
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={Reset}>Reset</button>
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={wUprCs}>Word Initials UpperCase</button>
-        <button className="btn btn-danger" style={{ margin: "8px" }} onClick={rBlnksp}>Remove Blank Spaces</button>
+        <button className="btn btn-danger" style={{ margin: "8px" }} onClick={rBlnksp}>Remove Extra Spaces</button>
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={replaceWrds}>Replace Words</button>
       </div>
       <div className="container py-2" id="textsummary">
