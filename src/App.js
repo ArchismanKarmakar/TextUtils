@@ -100,9 +100,10 @@ function App() {
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={wUprCs}>Word Initials UpperCase</button>
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={rBlnksp}>Remove Extra Spaces</button>
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={replaceWrds}>Replace Words</button>
+        <h2 className='py-2'>Text Summary</h2>
       </div>
-
       <TextSummary initialst={initialst}></TextSummary>
+      <h3><span id="errortext"></span></h3>
 
     </>
   );
