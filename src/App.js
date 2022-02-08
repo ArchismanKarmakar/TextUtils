@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 import Alert from './alert';
 import { type } from '@testing-library/user-event/dist/type';
 // import reactDom from 'react-dom';
+import TextSummary from './TextSummary';
 
 function App() {
 
@@ -100,14 +101,8 @@ function App() {
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={rBlnksp}>Remove Extra Spaces</button>
         <button className="btn btn-danger" style={{ margin: "8px" }} onClick={replaceWrds}>Replace Words</button>
       </div>
-      <div className="container py-2" id="textsummary">
-        <h2>Text Summary</h2>
-        <span id="words"> {initialst.split(" ").length} words </span>|
-        <span id="chars"> {initialst.length} characters </span>|
-        <span id="timetoread"> {initialst.split(" ").length * 0.008} mins to read (approx)</span>
-        <br />
-        <h3><span id="errortext"></span></h3>
-      </div>
+
+      <TextSummary initialst={initialst}></TextSummary>
 
     </>
   );
